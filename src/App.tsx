@@ -1,25 +1,18 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import { getCardByName } from './utils/scryfall'
+import {Card} from 'scryfall-sdk';
+import CardSearchForm from './components/CardSearchForm';
+import { ScryptOptions } from 'crypto';
 function App() {
+	const [card, setCard] = useState('')
+	useEffect(() => {
+getCardByName("Commandr's Sphere").then(card => setCard(card.name))
+	})
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+	<><h1>{card}</h1><CardSearchForm /></>
+     
   );
 }
 
