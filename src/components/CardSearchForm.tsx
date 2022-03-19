@@ -1,9 +1,11 @@
 import React, {FC, useState} from 'react';
 import { Card } from 'scryfall-sdk';
 import { getCardByName } from '../utils/scryfall'
+import {BoardStateAction, MagicCard, BoardStateActions} from '../utils/reducers/boardState.reducer'
 
 interface searchForm {
-	setResult: React.Dispatch<React.SetStateAction<Card | null>>
+	setResult: React.Dispatch<React.SetStateAction<Card | null>>;
+	dispatchBoardState: React.Dispatch<BoardStateAction>
 }
 
 const  SearchForm: FC<searchForm> = (props) => {
@@ -16,6 +18,12 @@ const  SearchForm: FC<searchForm> = (props) => {
 		const result = await getCardByName(textValue)
 		console.log(result);
 		props.setResult(result);
+			const card: MagicCard = {
+				...result,
+				tapped: false
+			} as MagicCard
+		
+		props.dispatchBoardState({type: BoardStateActions.ADD_TO_FIELD, payload: card})
 	}
 	return (<form onSubmit={searchCard}>
 		<input type="text" id='card-name' value={textValue} onChange={(e) =>{

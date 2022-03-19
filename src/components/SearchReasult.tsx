@@ -1,7 +1,9 @@
 import React, {FC}from 'react';
 import { Card} from 'scryfall-sdk';
+import { BoardStateAction } from '../utils/reducers/boardState.reducer';
 interface searchResult {
 	result: Card;
+	changeBoardState: React.Dispatch<BoardStateAction>;
 }
 
 const SearchResult: FC<searchResult> = (props) => {

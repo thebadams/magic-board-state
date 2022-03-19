@@ -1,10 +1,10 @@
 import {Card} from 'scryfall-sdk';
 
-interface MagicCard extends Card {
+export interface MagicCard extends Card {
 	tapped: boolean;
 }
 
-enum BoardStateActions {
+export enum BoardStateActions {
 	ADD_TO_FIELD = 'ADD TO FIELD',
 	REMOVE_FROM_FIELD = 'REMOVE FROM FIELD',
 	ADD_TO_GRAVEYARD = 'ADD TO GRAVEYARD',
@@ -15,13 +15,13 @@ enum BoardStateActions {
 }
 
 
-interface PlayerBoardState {
+export interface PlayerBoardState {
 	field: MagicCard[];
 	graveyard: MagicCard[];
 	exile: MagicCard[]; 
 }
 
-interface BoardStateAction {
+export interface BoardStateAction {
 	type: BoardStateActions;
 	payload: MagicCard;	
 }
@@ -61,6 +61,7 @@ export default function boardStateReducer(state: PlayerBoardState, action: Board
 			payload.tapped = false;
 			return state
 		default:
+			return state
 			break;
 	}
 }
