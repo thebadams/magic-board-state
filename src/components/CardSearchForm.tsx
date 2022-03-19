@@ -1,8 +1,12 @@
-import React, {useState} from 'react';
+import React, {FC, useState} from 'react';
+import { Card } from 'scryfall-sdk';
 import { getCardByName } from '../utils/scryfall'
 
+interface searchForm {
+	setResult: React.Dispatch<React.SetStateAction<Card | null>>
+}
 
-export default function CardSearchForm() {
+const  SearchForm: FC<searchForm> = (props) => {
 	const [textValue, setTextValue] = useState('Mountain')
 	async function searchCard(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault()
@@ -11,6 +15,7 @@ export default function CardSearchForm() {
 		console.log(input)
 		const result = await getCardByName(textValue)
 		console.log(result);
+		props.setResult(result);
 	}
 	return (<form onSubmit={searchCard}>
 		<input type="text" id='card-name' value={textValue} onChange={(e) =>{
@@ -20,3 +25,5 @@ export default function CardSearchForm() {
 		<button type='submit'>Search</button>
 	</form >)
 }
+
+export default SearchForm;
